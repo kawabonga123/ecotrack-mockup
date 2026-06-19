@@ -77,6 +77,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 const els = {};
+let caseScrollObserver;
 
 function filteredReports() {
   if (state.activeCategory === "Todos") return reports;
@@ -125,6 +126,7 @@ function renderMissionList() {
   filteredReports().forEach((report) => {
     const button = createElement("button", `mission-card spotlight-surface motion-surface ${state.selectedId === report.id ? "is-active" : ""}`);
     button.type = "button";
+    button.dataset.reportId = report.id;
     button.setAttribute("aria-pressed", state.selectedId === report.id ? "true" : "false");
     button.addEventListener("click", () => selectReport(report.id));
 
@@ -212,13 +214,39 @@ function renderAll() {
   renderMap();
   renderDetail();
   renderCategoryChoices();
+  initCaseScrollSync();
 }
 
 function selectReport(id) {
+  if (state.selectedId === id) return;
   state.selectedId = id;
   renderMissionList();
   renderMap();
   renderDetail();
+  initCaseScrollSync();
+}
+
+function initCaseScrollSync() {
+  if (caseScrollObserver) caseScrollObserver.disconnect();
+  if (!("IntersectionObserver" in window)) return;
+  if (!window.matchMedia("(max-width: 560px)").matches) return;
+
+  const cards = $$(".mission-card");
+  if (!cards.length) return;
+
+  // ponytail: native observer is enough; no scroll library for one mobile sync.
+  caseScrollObserver = new IntersectionObserver(
+    (entries) => {
+      const focused = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => Math.abs(a.boundingClientRect.top - window.innerHeight * 0.42) - Math.abs(b.boundingClientRect.top - window.innerHeight * 0.42))[0];
+      const id = focused?.target?.dataset?.reportId;
+      if (id) selectReport(id);
+    },
+    { rootMargin: "-32% 0px -48% 0px", threshold: 0 },
+  );
+
+  cards.forEach((card) => caseScrollObserver.observe(card));
 }
 
 function updatePickedPoint() {
@@ -521,6 +549,12 @@ document.addEventListener("DOMContentLoaded", () => {
   bindEvents();
   initCultMotion();
   initHeroVideo();
+  const mobileCases = window.matchMedia("(max-width: 560px)");
+  if (mobileCases.addEventListener) {
+    mobileCases.addEventListener("change", initCaseScrollSync);
+  } else if (mobileCases.addListener) {
+    mobileCases.addListener(initCaseScrollSync);
+  }
   registerServiceWorker();
   if (new URLSearchParams(window.location.search).get("report") === "1") {
     window.setTimeout(openReport, 150);

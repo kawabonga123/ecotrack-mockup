@@ -1119,6 +1119,7 @@ h3 {
 
   .mission-card.is-active {
     padding: 18px;
+    transform: translateX(3px);
   }
 
   .mission-card .status-mini {
