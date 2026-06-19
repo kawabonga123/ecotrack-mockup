@@ -75,9 +75,7 @@ textarea {
 }
 
 body.bg-eco-wash {
-  background:
-    radial-gradient(circle at 14% -4%, rgba(205, 216, 191, .55), transparent 310px),
-    linear-gradient(180deg, #e7e3d8 0, #f2efe7 260px, #e8e5dc 100%);
+  background: #ebe7dc;
   color: var(--ink);
 }
 
@@ -97,10 +95,14 @@ button {
 }
 
 #main {
-  gap: 24px;
-  max-width: 1500px;
+  background: #ebe7dc;
+  gap: clamp(26px, 3.4vw, 44px);
+  max-width: none;
   padding-bottom: 56px;
-  padding-top: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  width: 100%;
 }
 
 .app-header > div {
@@ -161,13 +163,15 @@ h3 {
 }
 
 .app-header {
-  background: var(--primary);
+  background: linear-gradient(180deg, rgba(14, 25, 19, .78), rgba(14, 25, 19, 0));
   color: #f7f3ea;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 18px 36px rgba(16, 32, 26, .10);
+  box-shadow: none;
+  position: absolute !important;
+  width: 100%;
 }
 
 .app-header small {
-  color: #cbd7c6 !important;
+  color: rgba(255, 253, 247, .78) !important;
 }
 
 .brand-link {
@@ -305,6 +309,16 @@ h3 {
 .left-stack,
 .right-stack {
   min-width: 0;
+  padding-left: clamp(24px, 4vw, 72px);
+  padding-right: clamp(24px, 4vw, 72px);
+}
+
+.left-stack {
+  padding-right: clamp(18px, 2vw, 32px);
+}
+
+.right-stack {
+  padding-left: clamp(18px, 2vw, 32px);
 }
 
 @media (min-width: 1024px) {
@@ -331,22 +345,36 @@ h3 {
 
 .report-console {
   background: #17211b;
-  border: 1px solid rgba(31, 40, 35, .1);
-  border-radius: 18px;
+  border: 0;
+  border-radius: 0;
   box-shadow: 0 34px 110px rgba(31, 40, 35, .15);
   color: #fffdf7;
   display: grid;
-  min-height: min(680px, calc(100dvh - 116px));
+  min-height: min(760px, 100svh);
   overflow: hidden;
-  padding: clamp(34px, 5.6vw, 78px);
+  padding: clamp(128px, 13vw, 176px) clamp(24px, 7vw, 108px) clamp(92px, 11vw, 144px);
   position: relative;
   animation: surface-enter .28s var(--ease) both;
 }
 
+.report-console::before {
+  background: linear-gradient(180deg, rgba(235, 231, 220, 0) 0%, rgba(235, 231, 220, .56) 50%, #ebe7dc 82%, #ebe7dc 100%);
+  bottom: -22px;
+  content: "";
+  height: clamp(210px, 28svh, 310px);
+  left: 0;
+  opacity: 1;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: auto;
+  z-index: 2;
+}
+
 .report-console::after {
   background:
-    linear-gradient(90deg, rgba(20, 28, 23, .9), rgba(20, 28, 23, .62) 44%, rgba(20, 28, 23, .18)),
-    linear-gradient(180deg, rgba(20, 28, 23, .06), rgba(20, 28, 23, .5));
+    linear-gradient(180deg, rgba(12, 22, 17, .26), rgba(12, 22, 17, .06) 24%, rgba(12, 22, 17, .70) 100%),
+    linear-gradient(90deg, rgba(12, 22, 17, .92), rgba(12, 22, 17, .48) 58%, rgba(12, 22, 17, .16));
   content: "";
   inset: 0;
   pointer-events: none;
@@ -363,7 +391,7 @@ h3 {
 .hero-copy {
   align-content: center;
   max-width: 680px;
-  min-height: 100%;
+  min-height: 0;
   z-index: 3;
 }
 
@@ -389,8 +417,8 @@ h3 {
 }
 
 .hero-title {
-  font-size: clamp(2.35rem, 4.6vw, 5.25rem) !important;
-  line-height: .94 !important;
+  font-size: clamp(3.25rem, 5.6vw, 6.5rem) !important;
+  line-height: .9 !important;
   max-width: 700px;
   text-wrap: balance;
 }
@@ -1106,6 +1134,12 @@ h3 {
     padding-right: 0;
     padding-bottom: 44px;
     padding-top: 0;
+  }
+
+  .left-stack,
+  .right-stack {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   #casos {
