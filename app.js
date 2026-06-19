@@ -230,7 +230,7 @@ function openReport() {
   state.picked = { x: 54, y: 52, label: "Ubicación inicial: Bariloche centro." };
   state.draft = { category: "", description: "" };
   els.reportForm.reset();
-  els.evidenceFeedback.textContent = "Todavía no seleccionaste evidencia.";
+  els.evidenceFeedback.textContent = "Todavía no agregaste evidencia.";
   els.mapsLinkInput.value = "";
   els.descriptionInput.value = "";
   renderCategoryChoices();
@@ -246,7 +246,7 @@ function closeReport() {
 
 function validateStep() {
   if (state.step === 1 && !state.evidenceName) {
-    els.formFeedback.textContent = "Seleccioná una foto o video para validar el flujo.";
+    els.formFeedback.textContent = "Subí una foto o video para continuar.";
     return false;
   }
   if (state.step === 3) {
@@ -379,8 +379,8 @@ function bindEvents() {
   });
   els.evidenceInput.addEventListener("change", () => {
     const file = els.evidenceInput.files && els.evidenceInput.files[0];
-    state.evidenceName = file ? `${file.name} listo para adjuntar` : "";
-    els.evidenceFeedback.textContent = state.evidenceName || "Todavía no seleccionaste evidencia.";
+    state.evidenceName = file ? `${file.name} agregado` : "";
+    els.evidenceFeedback.textContent = state.evidenceName || "Todavía no agregaste evidencia.";
     els.formFeedback.textContent = "";
   });
   els.useLocationBtn.addEventListener("click", () => {
