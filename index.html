@@ -1,0 +1,244 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#263a31">
+  <meta name="description" content="ECOTRACK permite avisar problemas ambientales desde el celular sin crear cuenta.">
+  <meta property="og:title" content="ECOTRACK - avisos ambientales sin registro previo">
+  <meta property="og:description" content="Sacás evidencia, marcás el lugar y enviás el aviso. El contacto queda para el final.">
+  <meta property="og:type" content="website">
+  <title>ECOTRACK - Reportar en segundos</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tailwind.generated.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=46">
+  <script src="app.js?v=24" defer></script>
+</head>
+<body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="app-header sticky top-0 z-40">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 lg:px-6">
+      <a href="#main" class="brand-link flex min-h-12 items-center text-inherit no-underline">
+        <img class="brand-mark" src="assets/logo.svg" alt="" width="42" height="42" aria-hidden="true">
+        <span class="leading-none">
+          <strong class="block text-xl">ECOTRACK</strong>
+          <small class="mt-1 block text-[11px] font-black uppercase text-eco-deep">aviso ambiental</small>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-2 md:flex" aria-label="Secciones">
+        <a class="nav-chip" href="#casos">Casos</a>
+        <a class="nav-chip" href="#mapa">Mapa vivo</a>
+        <a class="nav-chip" href="#etapas">Etapas</a>
+      </nav>
+
+      <button class="btn-primary header-cta" type="button" data-open-report>Reportar</button>
+    </div>
+  </header>
+
+  <main id="main" class="mx-auto grid max-w-7xl gap-8 px-4 pb-28 pt-7 lg:grid-cols-[.86fr_1.14fr] lg:px-6 lg:pb-12">
+    <section class="left-stack grid content-start gap-8">
+      <section class="report-console">
+        <div class="hero-copy grid gap-6">
+          <p class="product-line">Aviso ciudadano</p>
+
+          <div class="mission-island" aria-label="Flujo principal">
+            <strong>Sin registro previo</strong>
+            <small>contacto opcional</small>
+          </div>
+
+          <div class="grid gap-4">
+            <h1 class="hero-title max-w-2xl text-2xl font-black leading-tight sm:text-4xl">Reportá un problema ambiental sin crear cuenta.</h1>
+            <p class="hero-lede max-w-xl text-base leading-7 text-eco-muted">Marcás dónde pasó, subís evidencia y lo enviás. Si querés novedades, dejás WhatsApp o mail después.</p>
+          </div>
+
+          <div class="mission-rail" id="missionRail" role="list" aria-label="Flujo de reporte"></div>
+
+          <div class="hero-actions flex flex-col gap-3 sm:flex-row">
+            <button class="btn-primary min-h-14 flex-1 text-base" type="button" data-open-report>Iniciar aviso</button>
+            <a class="btn-secondary min-h-14 flex-1 text-base" href="#mapa">Ver mapa</a>
+          </div>
+
+          <p class="trust-line" id="metricLine"></p>
+        </div>
+
+        <aside class="hero-shot" aria-label="Vista previa del flujo ECOTRACK">
+          <div class="hero-map-stage hero-video-stage">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-media/ecotrack-hero-poster.jpg" aria-label="Video documental ambiental para ECOTRACK">
+              <source src="assets/hero-media/ecotrack-hero-loop-720.mp4" type="video/mp4">
+            </video>
+            <div class="hero-map-scrim" aria-hidden="true"></div>
+            <div class="hero-case-receipt">
+              <span>Desde el lugar</span>
+              <strong>Un aviso claro.</strong>
+              <small>Sin registro previo.</small>
+            </div>
+          </div>
+          <div class="field-strip" aria-label="Resumen del flujo">
+            <span><strong>01</strong> evidencia</span>
+            <span><strong>02</strong> lugar</span>
+            <span><strong>03</strong> envio</span>
+          </div>
+        </aside>
+      </section>
+
+      <section id="casos" class="cases-panel grid gap-3">
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="eyebrow">Casos recientes</p>
+            <h2 class="text-2xl font-black">Reportes en revision</h2>
+          </div>
+          <select class="select-compact" id="categoryFilter" aria-label="Filtrar categoría"></select>
+        </div>
+        <div class="grid gap-2" id="missionList"></div>
+      </section>
+    </section>
+
+    <section id="mapa" class="right-stack grid gap-6 lg:sticky lg:top-[88px] lg:self-start">
+      <section class="map-panel grid gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="eyebrow">Mapa activo</p>
+            <h2 class="text-2xl font-black">Casos geolocalizados</h2>
+          </div>
+        </div>
+        <div class="eco-map h-[470px]" role="application" aria-label="Mapa simulado de reportes ambientales">
+          <iframe class="map-frame" title="Mapa base de Bariloche" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=-71.409%2C-41.176%2C-71.250%2C-41.095&amp;layer=mapnik"></iframe>
+          <div id="mapPins"></div>
+        </div>
+      </section>
+
+      <article class="case-sheet" id="caseDetail" aria-live="polite"></article>
+
+      <section id="etapas" class="principle-strip grid gap-3 pt-2">
+        <div>
+          <p class="eyebrow">Principio de producto</p>
+          <h2 class="text-2xl font-black">Menos friccion, mas reportes</h2>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-3">
+          <article class="principle-card">
+            <strong>Accion primero</strong>
+            <p>La primera pantalla abre el flujo, no explica de mas.</p>
+          </article>
+          <article class="principle-card">
+            <strong>Contacto despues</strong>
+            <p>Primero valor y accion; email o WhatsApp solo post-submit.</p>
+          </article>
+          <article class="principle-card">
+            <strong>Datos verificables</strong>
+            <p>Estados simples y evidencia antes que promesas de impacto.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog class="report-dialog" id="reportDialog" aria-labelledby="reportTitle">
+    <form method="dialog" class="grid gap-5 p-5 sm:p-6" id="reportForm">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="eyebrow">Nuevo reporte</p>
+          <h2 id="reportTitle" class="mt-1 text-3xl font-black leading-tight">Reporte en tres pasos</h2>
+        </div>
+        <button class="close-btn" type="button" id="closeReportBtn">Cerrar</button>
+      </div>
+
+      <div class="h-3 overflow-hidden rounded-full bg-eco-wash" aria-label="Progreso del reporte">
+        <div class="h-full rounded-full bg-eco-green transition-all duration-300" id="reportProgress"></div>
+      </div>
+
+      <section class="grid gap-4 report-step" data-step="1">
+        <h3 class="text-xl font-black">1. Subí evidencia</h3>
+        <label class="upload-line" for="evidenceInput">
+          <span>
+            <strong>Foto o video corto</strong>
+            <small>Vista previa local. En esta etapa no sube a servidor.</small>
+          </span>
+        </label>
+        <input id="evidenceInput" class="sr-only" type="file" accept="image/*,video/*">
+        <p class="evidence-line" id="evidenceFeedback">Todavía no seleccionaste evidencia.</p>
+      </section>
+
+      <section class="grid gap-4 report-step" data-step="2" hidden>
+        <h3 class="text-xl font-black">2. Marcala en el mapa</h3>
+        <div class="grid gap-3 sm:grid-cols-[auto_1fr]">
+          <button class="btn-secondary min-h-12" type="button" id="useLocationBtn">Usar ubicación</button>
+          <label class="grid gap-2">
+            <span class="label-text">Link de Google Maps opcional</span>
+            <input class="input-control" id="mapsLinkInput" type="url" placeholder="https://maps.google.com/...">
+          </label>
+        </div>
+        <button class="mini-game-map" type="button" id="locationPicker" aria-label="Corregir ubicacion en mapa">
+          <span id="pickedPoint"></span>
+        </button>
+        <p class="text-sm text-eco-muted" id="locationFeedback">Ubicación inicial: Bariloche centro.</p>
+      </section>
+
+      <section class="grid gap-4 report-step" data-step="3" hidden>
+        <h3 class="text-xl font-black">3. Clasificá y enviá</h3>
+        <fieldset class="grid gap-3">
+          <legend class="label-text">Categoría</legend>
+          <div class="choice-poll" id="categoryChoices"></div>
+        </fieldset>
+        <label class="grid gap-2">
+          <span class="label-text">Descripción corta</span>
+          <textarea class="input-control min-h-28" id="descriptionInput" maxlength="220" placeholder="Ej: residuos junto al arroyo"></textarea>
+        </label>
+      </section>
+
+      <p class="min-h-6 text-sm font-bold text-eco-coral" id="formFeedback" role="status" aria-live="polite"></p>
+
+      <div class="grid gap-3 sm:grid-cols-2">
+        <button class="btn-secondary min-h-12" type="button" id="backStepBtn" hidden>Volver</button>
+        <button class="btn-primary min-h-12 sm:col-start-2" type="button" id="nextStepBtn">Continuar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="report-dialog follow-dialog" id="followDialog" aria-labelledby="followTitle">
+    <div class="grid gap-5 p-6">
+      <div>
+        <p class="eyebrow">Seguimiento opcional</p>
+        <h2 id="followTitle" class="mt-1 text-3xl font-black">Activar seguimiento del reclamo</h2>
+        <p class="mt-2 leading-7 text-eco-muted">El reporte ya quedó cargado. Dejá solo tu nombre y un canal para recibir cambios de estado, novedades y acceso al seguimiento.</p>
+      </div>
+
+      <div class="lead-form" role="group" aria-describedby="leadHint leadFeedback">
+        <label class="lead-field" for="leadNameInput">
+          <span>Nombre</span>
+          <input id="leadNameInput" class="input-control" type="text" autocomplete="given-name" placeholder="Ej: Agus">
+        </label>
+        <div class="lead-grid">
+          <label class="lead-field" for="leadWhatsappInput">
+            <span>WhatsApp</span>
+            <input id="leadWhatsappInput" class="input-control" type="tel" inputmode="tel" autocomplete="tel" placeholder="+54 9 ...">
+          </label>
+          <label class="lead-field" for="leadEmailInput">
+            <span>Email</span>
+            <input id="leadEmailInput" class="input-control" type="email" inputmode="email" autocomplete="email" placeholder="mail@ejemplo.com">
+          </label>
+        </div>
+        <p class="lead-note" id="leadHint">Con WhatsApp o email alcanza. No pedimos apellido.</p>
+        <p class="lead-feedback" id="leadFeedback" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="lead-benefits" aria-label="Beneficios del seguimiento">
+        <span>Estado del caso</span>
+        <span>Novedades</span>
+        <span>Acceso futuro</span>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+        <button class="btn-primary min-h-12" type="button" id="saveLeadBtn">Guardar seguimiento</button>
+        <button class="btn-secondary min-h-12" type="button" id="closeFollowBtn">Omitir por ahora</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
+

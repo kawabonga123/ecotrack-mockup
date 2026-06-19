@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">ECOTRACK</title>
+  <desc id="desc">Marca simple para avisos ambientales geolocalizados</desc>
+  <rect width="96" height="96" rx="24" fill="#f7f3ea"/>
+  <path d="M48 18c13 0 24 10 24 23 0 17-24 37-24 37S24 58 24 41c0-13 11-23 24-23z" fill="#263a31"/>
+  <circle cx="48" cy="41" r="10" fill="#cdd8bf"/>
+  <path d="M48 31v20M38 41h20" stroke="#263a31" stroke-width="4" stroke-linecap="round"/>
+</svg>
