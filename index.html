@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#263a31">
-  <meta name="description" content="ECOTRACK permite avisar problemas ambientales desde el celular sin crear cuenta.">
-  <meta property="og:title" content="ECOTRACK - avisos ambientales sin registro previo">
-  <meta property="og:description" content="Sacás evidencia, marcás el lugar y enviás el aviso. El contacto queda para el final.">
+  <meta name="description" content="ECOTRACK permite avisar problemas ambientales desde el celular de forma simple y rápida.">
+  <meta property="og:title" content="ECOTRACK - avisos ambientales simples y rápidos">
+  <meta property="og:description" content="Sacás evidencia, marcás el lugar y enviás el aviso. Sin cuenta para empezar.">
   <meta property="og:type" content="website">
   <title>ECOTRACK - Reportar en segundos</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tailwind.generated.css?v=1">
-  <link rel="stylesheet" href="styles.css?v=46">
-  <script src="app.js?v=24" defer></script>
+  <link rel="stylesheet" href="styles.css?v=49">
+  <script src="app.js?v=25" defer></script>
 </head>
 <body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -27,14 +27,13 @@
         <img class="brand-mark" src="assets/logo.svg" alt="" width="42" height="42" aria-hidden="true">
         <span class="leading-none">
           <strong class="block text-xl">ECOTRACK</strong>
-          <small class="mt-1 block text-[11px] font-black uppercase text-eco-deep">aviso ambiental</small>
+          <small class="mt-1 block text-[11px] font-black uppercase text-eco-deep">reportes ambientales</small>
         </span>
       </a>
 
       <nav class="hidden items-center gap-2 md:flex" aria-label="Secciones">
         <a class="nav-chip" href="#casos">Casos</a>
         <a class="nav-chip" href="#mapa">Mapa vivo</a>
-        <a class="nav-chip" href="#etapas">Etapas</a>
       </nav>
 
       <button class="btn-primary header-cta" type="button" data-open-report>Reportar</button>
@@ -45,26 +44,15 @@
     <section class="left-stack grid content-start gap-8">
       <section class="report-console">
         <div class="hero-copy grid gap-6">
-          <p class="product-line">Aviso ciudadano</p>
-
-          <div class="mission-island" aria-label="Flujo principal">
-            <strong>Sin registro previo</strong>
-            <small>contacto opcional</small>
-          </div>
-
           <div class="grid gap-4">
-            <h1 class="hero-title max-w-2xl text-2xl font-black leading-tight sm:text-4xl">Reportá un problema ambiental sin crear cuenta.</h1>
-            <p class="hero-lede max-w-xl text-base leading-7 text-eco-muted">Marcás dónde pasó, subís evidencia y lo enviás. Si querés novedades, dejás WhatsApp o mail después.</p>
+            <h1 class="hero-title max-w-2xl text-2xl font-black leading-tight sm:text-4xl">Reportá fácil y rápido un problema ambiental.</h1>
+            <p class="hero-lede max-w-xl text-base leading-7 text-eco-muted">Marcás dónde pasó, subís evidencia y enviás el aviso. <span>Sin cuenta para empezar.</span></p>
           </div>
-
-          <div class="mission-rail" id="missionRail" role="list" aria-label="Flujo de reporte"></div>
 
           <div class="hero-actions flex flex-col gap-3 sm:flex-row">
             <button class="btn-primary min-h-14 flex-1 text-base" type="button" data-open-report>Iniciar aviso</button>
             <a class="btn-secondary min-h-14 flex-1 text-base" href="#mapa">Ver mapa</a>
           </div>
-
-          <p class="trust-line" id="metricLine"></p>
         </div>
 
         <aside class="hero-shot" aria-label="Vista previa del flujo ECOTRACK">
@@ -74,15 +62,8 @@
             </video>
             <div class="hero-map-scrim" aria-hidden="true"></div>
             <div class="hero-case-receipt">
-              <span>Desde el lugar</span>
-              <strong>Un aviso claro.</strong>
-              <small>Sin registro previo.</small>
+              <strong>Foto, lugar y listo.</strong>
             </div>
-          </div>
-          <div class="field-strip" aria-label="Resumen del flujo">
-            <span><strong>01</strong> evidencia</span>
-            <span><strong>02</strong> lugar</span>
-            <span><strong>03</strong> envio</span>
           </div>
         </aside>
       </section>
@@ -90,8 +71,7 @@
       <section id="casos" class="cases-panel grid gap-3">
         <div class="flex items-end justify-between gap-3">
           <div>
-            <p class="eyebrow">Casos recientes</p>
-            <h2 class="text-2xl font-black">Reportes en revision</h2>
+            <h2 class="text-2xl font-black">Casos recientes</h2>
           </div>
           <select class="select-compact" id="categoryFilter" aria-label="Filtrar categoría"></select>
         </div>
@@ -103,8 +83,7 @@
       <section class="map-panel grid gap-3">
         <div class="flex items-center justify-between gap-3">
           <div>
-            <p class="eyebrow">Mapa activo</p>
-            <h2 class="text-2xl font-black">Casos geolocalizados</h2>
+            <h2 class="text-2xl font-black">Mapa activo</h2>
           </div>
         </div>
         <div class="eco-map h-[470px]" role="application" aria-label="Mapa simulado de reportes ambientales">
@@ -114,27 +93,6 @@
       </section>
 
       <article class="case-sheet" id="caseDetail" aria-live="polite"></article>
-
-      <section id="etapas" class="principle-strip grid gap-3 pt-2">
-        <div>
-          <p class="eyebrow">Principio de producto</p>
-          <h2 class="text-2xl font-black">Menos friccion, mas reportes</h2>
-        </div>
-        <div class="grid gap-3 sm:grid-cols-3">
-          <article class="principle-card">
-            <strong>Accion primero</strong>
-            <p>La primera pantalla abre el flujo, no explica de mas.</p>
-          </article>
-          <article class="principle-card">
-            <strong>Contacto despues</strong>
-            <p>Primero valor y accion; email o WhatsApp solo post-submit.</p>
-          </article>
-          <article class="principle-card">
-            <strong>Datos verificables</strong>
-            <p>Estados simples y evidencia antes que promesas de impacto.</p>
-          </article>
-        </div>
-      </section>
     </section>
   </main>
 
@@ -142,8 +100,7 @@
     <form method="dialog" class="grid gap-5 p-5 sm:p-6" id="reportForm">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <p class="eyebrow">Nuevo reporte</p>
-          <h2 id="reportTitle" class="mt-1 text-3xl font-black leading-tight">Reporte en tres pasos</h2>
+          <h2 id="reportTitle" class="text-3xl font-black leading-tight">Reporte en tres pasos</h2>
         </div>
         <button class="close-btn" type="button" id="closeReportBtn">Cerrar</button>
       </div>
@@ -203,8 +160,7 @@
   <dialog class="report-dialog follow-dialog" id="followDialog" aria-labelledby="followTitle">
     <div class="grid gap-5 p-6">
       <div>
-        <p class="eyebrow">Seguimiento opcional</p>
-        <h2 id="followTitle" class="mt-1 text-3xl font-black">Activar seguimiento del reclamo</h2>
+        <h2 id="followTitle" class="text-3xl font-black">Activar seguimiento del reclamo</h2>
         <p class="mt-2 leading-7 text-eco-muted">El reporte ya quedó cargado. Dejá solo tu nombre y un canal para recibir cambios de estado, novedades y acceso al seguimiento.</p>
       </div>
 

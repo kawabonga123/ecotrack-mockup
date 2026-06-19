@@ -61,8 +61,7 @@ button {
 
 #main,
 #casos,
-#mapa,
-#etapas {
+#mapa {
   scroll-margin-top: 92px;
 }
 
@@ -75,14 +74,6 @@ button {
 
 .app-header > div {
   max-width: 1500px;
-}
-
-#missionRail {
-  min-height: 62px;
-}
-
-#metricLine {
-  min-height: 26px;
 }
 
 #missionList {
@@ -266,8 +257,7 @@ h3 {
 .report-console,
 .cases-panel,
 .map-panel,
-.case-sheet,
-.principle-strip {
+.case-sheet {
   animation: surface-enter .24s var(--ease) both;
 }
 
@@ -309,51 +299,14 @@ h3 {
   color: var(--ink);
 }
 
-.report-console .text-eco-muted,
-.report-console .mission-island small,
-.report-console .mission-step span {
+.report-console .text-eco-muted {
   color: var(--muted) !important;
-}
-
-.report-console .mission-step,
-.report-console .mission-step.is-done,
-.report-console .mission-step strong,
-.report-console .mission-step.is-done strong {
-  color: var(--ink) !important;
 }
 
 .cases-panel,
 .map-panel,
-.case-sheet,
-.principle-strip {
-  padding: 0;
-}
-
-.cases-panel {
+.case-sheet {
   background: transparent;
-}
-
-.mission-island {
-  align-items: center;
-  background: transparent;
-  border-radius: 999px;
-  color: inherit;
-  display: inline-flex;
-  gap: 10px;
-  justify-self: start;
-  min-height: 32px;
-  padding: 0;
-  width: fit-content;
-}
-
-.mission-island span {
-  display: none;
-}
-
-.mission-island strong {
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
 }
 
 .hero-title {
@@ -369,69 +322,13 @@ h3 {
   max-width: 620px;
 }
 
-.mission-island small {
-  color: #5c7168;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
+.hero-lede span {
+  color: var(--accent-2);
+  font-weight: 700;
 }
 
 .eyebrow {
   color: var(--muted);
-}
-
-.product-line {
-  color: var(--accent-2);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.45;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.mission-step {
-  display: grid;
-  gap: 5px;
-  min-height: 62px;
-  padding: 10px 0 4px;
-  text-align: left;
-}
-
-.mission-step span {
-  color: var(--subtle);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.mission-step strong {
-  font-size: 13px;
-  line-height: 1.15;
-  font-weight: 700;
-}
-
-.mission-step.is-done {
-  color: var(--ink);
-}
-
-.mission-step.is-done span {
-  color: var(--primary-2);
-}
-
-.mission-rail {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid rgba(31, 40, 35, .14);
-  border-bottom: 1px solid rgba(31, 40, 35, .14);
-}
-
-.trust-line {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.55;
-  margin: 0;
-  max-width: 620px;
 }
 
 .hero-shot {
@@ -530,8 +427,7 @@ h3 {
   text-shadow: 0 2px 18px rgba(0, 0, 0, .36);
 }
 
-.hero-case-receipt span,
-.field-strip span {
+.hero-case-receipt span {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -546,25 +442,6 @@ h3 {
   color: rgba(255, 253, 247, .84);
   font-size: 13px;
   font-weight: 700;
-}
-
-.field-strip {
-  border-top: 1px solid rgba(31, 40, 35, .14);
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 700px;
-  padding-top: 14px;
-  width: min(100%, 700px);
-}
-
-.field-strip span {
-  color: var(--muted);
-}
-
-.field-strip strong {
-  color: var(--ink);
-  margin-right: 6px;
 }
 
 .report-console .btn-primary {
@@ -799,24 +676,6 @@ h3 {
   padding-left: 0;
 }
 
-.principle-card {
-  padding: 0;
-  border-top: 1px solid rgba(31, 40, 35, .12);
-  padding-top: 12px;
-}
-
-.principle-card strong {
-  display: block;
-  font-weight: 700;
-}
-
-.principle-card p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-  margin-top: 6px;
-}
-
 .mobile-tab {
   background: transparent;
   border: 0;
@@ -985,14 +844,6 @@ h3 {
     width: 100%;
   }
 
-  #metricLine {
-    min-height: 0;
-  }
-
-  .trust-line {
-    display: none;
-  }
-
   .report-console {
     gap: 20px;
     grid-template-columns: 1fr;
@@ -1002,21 +853,6 @@ h3 {
 
   .hero-copy {
     gap: 16px;
-  }
-
-  .product-line {
-    font-size: 11px;
-  }
-
-  .product-line,
-  .mission-island,
-  .mission-rail {
-    display: none;
-  }
-
-  .mission-island strong,
-  .mission-island small {
-    font-size: 12px;
   }
 
   .hero-title {
@@ -1065,11 +901,6 @@ h3 {
     top: 58%;
   }
 
-  .field-strip {
-    display: none;
-    padding-top: 10px;
-  }
-
   .lead-grid,
   .lead-benefits {
     grid-template-columns: 1fr;
@@ -1090,25 +921,6 @@ h3 {
   }
 }
 
-@media (max-width: 360px) {
-  .hero-actions {
-    display: none;
-  }
-
-  .hero-shot {
-    display: none;
-  }
-
-  .mission-island {
-    gap: 8px;
-  }
-
-  .mission-island strong,
-  .mission-island small {
-    font-size: 12px;
-  }
-}
-
 @media (orientation: landscape) and (max-height: 500px) {
   #main {
     gap: 14px;
@@ -1121,11 +933,6 @@ h3 {
     max-width: 600px;
   }
 
-  .mission-island,
-  .mission-rail,
-  .trust-line {
-    margin-top: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

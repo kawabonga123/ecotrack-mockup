@@ -1,10 +1,4 @@
 const categories = ["Residuos", "Agua", "Aire", "Bosques", "Fauna", "Otro"];
-const quickSteps = [
-  { number: "01", label: "Foto", done: true },
-  { number: "02", label: "Lugar", done: true },
-  { number: "03", label: "Enviar", done: false },
-];
-
 const reports = [
   {
     id: "ECO-1024",
@@ -104,21 +98,6 @@ function createElement(tag, className, text) {
   return element;
 }
 
-function renderRail() {
-  els.missionRail.innerHTML = "";
-  quickSteps.forEach((step) => {
-    const item = createElement("div", `mission-step ${step.done ? "is-done" : ""}`);
-    item.setAttribute("role", "listitem");
-    item.setAttribute("aria-label", `${step.number}. ${step.label}. ${step.done ? "completo" : "pendiente"}`);
-    item.append(createElement("span", "", step.number), createElement("strong", "", step.label));
-    els.missionRail.appendChild(item);
-  });
-}
-
-function renderMetrics() {
-  els.metricLine.textContent = "Primero mandás el aviso. Después elegís si dejar contacto.";
-}
-
 function renderCategoryFilter() {
   els.categoryFilter.innerHTML = "";
   ["Todos", ...categories].forEach((category) => {
@@ -214,8 +193,6 @@ function renderCategoryChoices() {
 }
 
 function renderAll() {
-  renderRail();
-  renderMetrics();
   renderCategoryFilter();
   renderMissionList();
   renderMap();
@@ -433,8 +410,6 @@ function registerServiceWorker() {
 
 function cacheElements() {
   [
-    "missionRail",
-    "metricLine",
     "categoryFilter",
     "missionList",
     "mapPins",
