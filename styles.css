@@ -797,15 +797,34 @@ h3 {
   margin: 24px auto auto;
   max-height: calc(100dvh - 24px);
   max-width: 720px;
+  opacity: 0;
+  overscroll-behavior: contain;
   overflow: auto;
   padding: 0;
   position: fixed;
+  scrollbar-gutter: stable both-edges;
+  transform: translateY(18px) scale(.985);
+  transition: opacity .22s var(--ease), transform .22s var(--ease);
   width: min(720px, calc(100% - 24px));
 }
 
+.report-dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .report-dialog::backdrop {
-  background: rgba(16, 35, 29, .44);
-  backdrop-filter: blur(3px);
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 253, 247, .14), transparent 34%),
+    rgba(16, 35, 29, .54);
+  backdrop-filter: blur(8px);
+}
+
+@starting-style {
+  .report-dialog[open] {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+  }
 }
 
 .close-btn {
@@ -822,6 +841,15 @@ h3 {
   justify-content: center;
   padding: 0 14px;
   width: auto;
+}
+
+.close-btn:hover {
+  background: #ebe7dc;
+}
+
+.report-dialog .close-btn:focus-visible {
+  outline: 2px solid rgba(38, 58, 49, .28);
+  outline-offset: 2px;
 }
 
 .upload-line {
@@ -847,6 +875,10 @@ h3 {
   border-color: rgba(38, 58, 49, .32);
   box-shadow: 0 14px 34px rgba(31, 40, 35, .10);
   transform: translateY(-1px);
+}
+
+.report-step:not([hidden]) {
+  animation: step-enter .22s var(--ease) both;
 }
 
 .upload-icon {
@@ -941,7 +973,24 @@ h3 {
   }
 }
 
+@keyframes step-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 560px) {
+  body.bg-eco-wash,
+  #main {
+    background: #ebe7dc;
+  }
+
   body.bg-eco-wash::before {
     opacity: .22;
   }
@@ -1013,10 +1062,10 @@ h3 {
   }
 
   .report-console::before {
-    background: linear-gradient(180deg, rgba(235, 231, 220, 0), rgba(235, 231, 220, .68) 58%, #ebe7dc 88%, #ebe7dc);
-    bottom: -1px;
+    background: linear-gradient(180deg, rgba(235, 231, 220, 0) 0%, rgba(235, 231, 220, .62) 52%, #ebe7dc 82%, #ebe7dc 100%);
+    bottom: -18px;
     content: "";
-    height: clamp(150px, 28svh, 230px);
+    height: clamp(170px, 30svh, 250px);
     left: 0;
     opacity: 1;
     pointer-events: none;
@@ -1143,8 +1192,10 @@ h3 {
   }
 
   .report-dialog {
-    border-radius: 22px;
-    margin: 14px auto auto;
+    border-radius: 24px 24px 18px 18px;
+    margin: 12px auto auto;
+    max-height: calc(100dvh - 24px);
+    width: min(420px, calc(100% - 20px));
   }
 }
 
@@ -1176,6 +1227,8 @@ h3 {
   .hero-video-stage,
   .upload-line,
   .hero-actions .btn-primary::after,
+  .report-dialog,
+  .report-step:not([hidden]),
   .motion-surface {
     animation: none;
     opacity: 1;
