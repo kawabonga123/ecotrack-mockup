@@ -1013,10 +1013,10 @@ h3 {
   }
 
   .report-console::before {
-    background: linear-gradient(180deg, rgba(231, 227, 216, 0), #e7e3d8 82%, #e7e3d8);
+    background: linear-gradient(180deg, rgba(235, 231, 220, 0), rgba(235, 231, 220, .68) 58%, #ebe7dc 88%, #ebe7dc);
     bottom: -1px;
     content: "";
-    height: clamp(108px, 20svh, 168px);
+    height: clamp(150px, 28svh, 230px);
     left: 0;
     pointer-events: none;
     position: absolute;
@@ -1085,6 +1085,14 @@ h3 {
     border-radius: 0;
     box-shadow: none;
     height: 100%;
+  }
+
+  .eco-map {
+    touch-action: pan-y;
+  }
+
+  .map-frame {
+    pointer-events: none;
   }
 
   .hero-case-receipt {
