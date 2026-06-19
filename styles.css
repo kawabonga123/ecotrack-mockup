@@ -942,10 +942,21 @@ h3 {
 }
 
 @media (max-width: 560px) {
+  body.bg-eco-wash::before {
+    opacity: .22;
+  }
+
+  .app-header {
+    background: linear-gradient(180deg, rgba(14, 25, 19, .78), rgba(14, 25, 19, 0));
+    box-shadow: none;
+    color: #fffdf7;
+    position: absolute !important;
+    width: 100%;
+  }
+
   .app-header > div {
-    min-height: 68px;
-    padding-bottom: 8px !important;
-    padding-top: 8px !important;
+    min-height: 92px;
+    padding: 22px 24px 14px !important;
   }
 
   .app-header strong {
@@ -954,18 +965,21 @@ h3 {
   }
 
   .app-header small {
+    color: rgba(255, 253, 247, .78) !important;
     font-size: 10px !important;
   }
 
   .brand-mark {
-    height: 36px;
-    width: 36px;
+    height: 42px;
+    width: 42px;
   }
 
   #main {
-    gap: 30px;
+    gap: 26px;
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 44px;
-    padding-top: 18px;
+    padding-top: 0;
   }
 
   #casos {
@@ -983,35 +997,58 @@ h3 {
   }
 
   .report-console {
-    gap: 18px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    gap: 0;
     grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 18px;
+    min-height: 100svh;
+    padding: 128px 24px 56px;
+  }
+
+  .report-console::after {
+    background:
+      linear-gradient(180deg, rgba(12, 22, 17, .32), rgba(12, 22, 17, .06) 24%, rgba(12, 22, 17, .72) 100%),
+      linear-gradient(90deg, rgba(12, 22, 17, .88), rgba(12, 22, 17, .42) 62%, rgba(12, 22, 17, .18));
   }
 
   .hero-copy {
-    gap: 16px;
-    min-height: auto;
-    order: 1;
+    align-self: center;
+    gap: 22px;
+    max-width: none;
+    min-height: 0;
+    order: initial;
   }
 
   .hero-title {
-    font-size: clamp(2rem, 9.7vw, 2.55rem) !important;
-    line-height: .96 !important;
+    font-size: clamp(2.55rem, 12.6vw, 3.45rem) !important;
+    line-height: .9 !important;
   }
 
   .hero-lede {
-    font-size: 1rem !important;
-    line-height: 1.58 !important;
+    font-size: 1.08rem !important;
+    line-height: 1.52 !important;
+    max-width: 22rem;
   }
 
   .hero-shot {
-    aspect-ratio: 1.28 / 1;
-    border-radius: 12px;
-    min-height: 0;
-    order: 2;
+    aspect-ratio: auto;
+    border-radius: 0;
+    inset: 0;
+    min-height: auto;
+    order: initial;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+  }
+
+  .hero-actions {
+    gap: 12px !important;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    flex: none;
+    min-height: 58px;
   }
 
   .upload-line {
@@ -1026,22 +1063,14 @@ h3 {
   }
 
   .hero-map-stage {
-    aspect-ratio: 1.28 / 1;
-    border-radius: 10px;
-    box-shadow: 0 18px 44px rgba(31, 40, 35, .13);
-    height: auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+    box-shadow: none;
+    height: 100%;
   }
 
   .hero-case-receipt {
-    bottom: 16px;
-    left: 34px;
-    max-width: calc(100% - 24px);
-    padding: 0;
-    right: auto;
-  }
-
-  .hero-case-receipt strong {
-    font-size: 1.35rem;
+    display: none;
   }
 
   .hero-case-pin {
