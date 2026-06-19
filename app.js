@@ -317,7 +317,7 @@ function nextStep() {
 
 function submitMockReport() {
   const id = `ECO-${Math.floor(1100 + Math.random() * 800)}`;
-  reports.unshift({
+  const report = {
     id,
     category: state.draft.category,
     title: `${state.draft.category}: reporte ciudadano recibido`,
@@ -328,15 +328,26 @@ function submitMockReport() {
     status: "recibido",
     x: state.picked.x,
     y: state.picked.y,
-  });
+  };
+  reports.unshift(report);
   state.activeCategory = "Todos";
   state.selectedId = id;
   closeReport();
   renderAll();
   resetLeadForm();
-  els.followReportId.textContent = `${id} recibido`;
+  updateReceipt(report);
   els.followDialog.showModal();
   window.requestAnimationFrame(() => els.leadNameInput.focus());
+}
+
+function updateReceipt(report = selectedReport()) {
+  if (!report) return;
+  els.followReportId.textContent = `${report.id} recibido`;
+  els.receiptCaseId.textContent = report.id;
+  els.receiptStatus.textContent = report.status;
+  els.receiptCategory.textContent = report.category;
+  els.receiptLocation.textContent = report.location;
+  els.receiptSummary.textContent = "El equipo ya puede revisar la evidencia y cambiar el estado cuando avance.";
 }
 
 function resetLeadForm() {
@@ -346,7 +357,7 @@ function resetLeadForm() {
   els.leadEmailInput.value = "";
   els.leadFeedback.textContent = "";
   els.leadFeedback.classList.remove("is-success");
-  if (els.followReportId) els.followReportId.textContent = state.selectedId ? `${state.selectedId} recibido` : "Reporte recibido";
+  if (els.followReportId) updateReceipt();
 }
 
 function normalizeLead() {
@@ -445,6 +456,15 @@ function showAccountDemo() {
   els.accountFeedback.textContent = `Demo abierta: ${active}, estado actual y posibilidad de ampliar evidencia.`;
 }
 
+function showLoadedCase() {
+  els.followDialog.close();
+  window.setTimeout(() => {
+    const activeCard = document.querySelector(`.mission-card[data-report-id="${state.selectedId}"]`);
+    const target = activeCard || els.caseDetail || els.missionList;
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 120);
+}
+
 function pickLocation(event) {
   const rect = els.locationPicker.getBoundingClientRect();
   const x = Math.max(7, Math.min(93, ((event.clientX - rect.left) / rect.width) * 100));
@@ -461,7 +481,7 @@ function bindEvents() {
   $$("[data-open-report]").forEach((button) => button.addEventListener("click", openReport));
   $$("[data-open-account]").forEach((button) => button.addEventListener("click", openAccount));
   els.closeReportBtn.addEventListener("click", closeReport);
-  els.closeFollowBtn.addEventListener("click", () => els.followDialog.close());
+  els.closeFollowBtn.addEventListener("click", showLoadedCase);
   els.saveLeadBtn.addEventListener("click", saveLead);
   els.openAccountFromFollow.addEventListener("click", openAccountFromFollow);
   els.closeAccountBtn.addEventListener("click", closeAccount);
@@ -587,6 +607,11 @@ function cacheElements() {
     "nextStepBtn",
     "followDialog",
     "followReportId",
+    "receiptCaseId",
+    "receiptStatus",
+    "receiptCategory",
+    "receiptLocation",
+    "receiptSummary",
     "leadNameInput",
     "leadWhatsappInput",
     "leadEmailInput",

@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tailwind.generated.css?v=1">
-  <link rel="stylesheet" href="styles.css?v=69">
-  <script src="app.js?v=31" defer></script>
+  <link rel="stylesheet" href="styles.css?v=70">
+  <script src="app.js?v=32" defer></script>
 </head>
 <body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -164,8 +164,31 @@
     <div class="follow-shell grid gap-5 p-6">
       <div class="follow-head">
         <span class="follow-kicker" id="followReportId">Reporte recibido</span>
-        <h2 id="followTitle" class="text-3xl font-black">¿Querés seguir este caso?</h2>
-        <p class="mt-2 leading-7 text-eco-muted">Dejá tu nombre y WhatsApp o email. Te avisamos si cambia el estado y podés volver a verlo sin contraseña.</p>
+        <h2 id="followTitle" class="text-3xl font-black">Listo, cargamos tu reporte.</h2>
+        <p class="mt-2 leading-7 text-eco-muted">Quedó guardado como caso nuevo y ya aparece en el listado de ECOTRACK.</p>
+      </div>
+
+      <div class="receipt-panel" aria-label="Resumen del reporte cargado">
+        <div class="receipt-top">
+          <strong id="receiptCaseId">ECO-0000</strong>
+          <span id="receiptStatus">recibido</span>
+        </div>
+        <dl class="receipt-grid">
+          <div>
+            <dt>Categoría</dt>
+            <dd id="receiptCategory">-</dd>
+          </div>
+          <div>
+            <dt>Ubicación</dt>
+            <dd id="receiptLocation">-</dd>
+          </div>
+        </dl>
+        <p id="receiptSummary">El equipo ya puede revisar la evidencia y cambiar el estado cuando avance.</p>
+      </div>
+
+      <div class="follow-next">
+        <h3>Seguí el caso sin crear cuenta</h3>
+        <p>Dejá un canal y te avisamos si pasa de recibido a revisado, derivado o resuelto.</p>
       </div>
 
       <div class="lead-form" role="group" aria-describedby="leadHint leadFeedback">
@@ -187,15 +210,15 @@
         <p class="lead-feedback" id="leadFeedback" role="status" aria-live="polite"></p>
       </div>
 
+      <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+        <button class="btn-primary min-h-12" type="button" id="saveLeadBtn">Guardar seguimiento</button>
+        <button class="btn-secondary min-h-12" type="button" id="closeFollowBtn">Ver caso cargado</button>
+      </div>
+
       <div class="lead-benefits" aria-label="Beneficios del seguimiento">
         <span>Volvés a ver el estado cuando quieras.</span>
         <span>Te avisamos si se revisa, deriva o resuelve.</span>
         <span>Podés sumar otra foto o dato después.</span>
-      </div>
-
-      <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
-        <button class="btn-primary min-h-12" type="button" id="saveLeadBtn">Guardar seguimiento</button>
-        <button class="btn-secondary min-h-12" type="button" id="closeFollowBtn">Omitir por ahora</button>
       </div>
       <button class="account-inline" type="button" id="openAccountFromFollow">Ya tengo un caso cargado</button>
     </div>

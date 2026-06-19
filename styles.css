@@ -677,6 +677,89 @@ h3 {
   text-transform: uppercase;
 }
 
+.receipt-panel {
+  background:
+    linear-gradient(90deg, rgba(205, 216, 191, .70), rgba(255, 253, 247, .42)),
+    rgba(235, 231, 220, .52);
+  border: 1px solid rgba(31, 40, 35, .08);
+  border-radius: 10px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.receipt-top {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.receipt-top strong {
+  color: var(--ink);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1;
+}
+
+.receipt-top span {
+  background: rgba(38, 58, 49, .92);
+  border-radius: 8px;
+  color: #fffdf7;
+  font-size: 11px;
+  font-weight: 800;
+  min-height: 34px;
+  padding: 10px 12px;
+  text-transform: uppercase;
+}
+
+.receipt-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  margin: 0;
+}
+
+.receipt-grid div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.receipt-grid dt {
+  color: #5d7168;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.receipt-grid dd {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.receipt-panel p,
+.follow-next p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.follow-next {
+  display: grid;
+  gap: 4px;
+}
+
+.follow-next h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+}
+
 .lead-benefits {
   background: rgba(235, 231, 220, .54);
   border: 1px solid rgba(31, 40, 35, .08);
@@ -1372,6 +1455,45 @@ h3 {
   .lead-grid,
   .lead-benefits {
     grid-template-columns: 1fr;
+  }
+
+  .follow-dialog .follow-shell {
+    gap: 14px;
+    padding: 20px !important;
+  }
+
+  .follow-dialog h2 {
+    font-size: clamp(2rem, 8vw, 2.35rem) !important;
+    line-height: 1.04 !important;
+  }
+
+  .receipt-panel {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .receipt-grid {
+    gap: 10px;
+    grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr);
+  }
+
+  .receipt-top {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .receipt-top span {
+    min-height: 32px;
+    padding: 9px 10px;
+  }
+
+  .receipt-panel p,
+  .follow-next p {
+    font-size: 13px;
+  }
+
+  .receipt-grid dd {
+    font-size: 13px;
   }
 
   .lead-benefits span + span {
