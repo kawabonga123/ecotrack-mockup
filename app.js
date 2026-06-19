@@ -334,6 +334,7 @@ function submitMockReport() {
   closeReport();
   renderAll();
   resetLeadForm();
+  els.followReportId.textContent = `${id} recibido`;
   els.followDialog.showModal();
   window.requestAnimationFrame(() => els.leadNameInput.focus());
 }
@@ -345,6 +346,7 @@ function resetLeadForm() {
   els.leadEmailInput.value = "";
   els.leadFeedback.textContent = "";
   els.leadFeedback.classList.remove("is-success");
+  if (els.followReportId) els.followReportId.textContent = state.selectedId ? `${state.selectedId} recibido` : "Reporte recibido";
 }
 
 function normalizeLead() {
@@ -397,6 +399,52 @@ function saveLead() {
   window.setTimeout(() => els.followDialog.close(), 760);
 }
 
+function resetAccountAccess() {
+  els.accountAccessInput.value = "";
+  els.accountFeedback.textContent = "";
+  els.accountFeedback.classList.remove("is-success");
+}
+
+function openAccount() {
+  resetAccountAccess();
+  els.accountDialog.showModal();
+  window.requestAnimationFrame(() => els.accountAccessInput.focus());
+}
+
+function closeAccount() {
+  els.accountDialog.close();
+}
+
+function openAccountFromFollow() {
+  els.followDialog.close();
+  window.setTimeout(openAccount, 120);
+}
+
+function validateAccountAccess() {
+  const value = els.accountAccessInput.value.trim();
+  els.accountFeedback.classList.remove("is-success");
+
+  if (!value) {
+    els.accountFeedback.textContent = "Escribi el WhatsApp o email que dejaste antes.";
+    els.accountAccessInput.focus();
+    return;
+  }
+
+  if (!validEmail(value) && !validPhone(value)) {
+    els.accountFeedback.textContent = "Revisa el dato: tiene que ser un WhatsApp o email valido.";
+    els.accountAccessInput.focus();
+    return;
+  }
+
+  showAccountDemo();
+}
+
+function showAccountDemo() {
+  const active = state.selectedId || "ECO-1024";
+  els.accountFeedback.classList.add("is-success");
+  els.accountFeedback.textContent = `Demo abierta: ${active}, estado actual y posibilidad de ampliar evidencia.`;
+}
+
 function pickLocation(event) {
   const rect = els.locationPicker.getBoundingClientRect();
   const x = Math.max(7, Math.min(93, ((event.clientX - rect.left) / rect.width) * 100));
@@ -411,9 +459,17 @@ function pickLocation(event) {
 
 function bindEvents() {
   $$("[data-open-report]").forEach((button) => button.addEventListener("click", openReport));
+  $$("[data-open-account]").forEach((button) => button.addEventListener("click", openAccount));
   els.closeReportBtn.addEventListener("click", closeReport);
   els.closeFollowBtn.addEventListener("click", () => els.followDialog.close());
   els.saveLeadBtn.addEventListener("click", saveLead);
+  els.openAccountFromFollow.addEventListener("click", openAccountFromFollow);
+  els.closeAccountBtn.addEventListener("click", closeAccount);
+  els.openAccountBtn.addEventListener("click", validateAccountAccess);
+  els.demoAccountBtn.addEventListener("click", showAccountDemo);
+  els.accountAccessInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") validateAccountAccess();
+  });
   els.nextStepBtn.addEventListener("click", nextStep);
   els.backStepBtn.addEventListener("click", () => {
     state.step = Math.max(1, state.step - 1);
@@ -530,12 +586,20 @@ function cacheElements() {
     "backStepBtn",
     "nextStepBtn",
     "followDialog",
+    "followReportId",
     "leadNameInput",
     "leadWhatsappInput",
     "leadEmailInput",
     "leadFeedback",
     "saveLeadBtn",
     "closeFollowBtn",
+    "openAccountFromFollow",
+    "accountDialog",
+    "closeAccountBtn",
+    "accountAccessInput",
+    "accountFeedback",
+    "openAccountBtn",
+    "demoAccountBtn",
   ].forEach((id) => {
     els[id] = document.getElementById(id);
   });

@@ -284,6 +284,19 @@ h3 {
   padding: 0 13px;
 }
 
+.header-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.account-chip {
+  background: rgba(255, 253, 247, .10);
+  border: 1px solid rgba(255, 253, 247, .24);
+  color: #fffdf7;
+  min-width: 72px;
+}
+
 .nav-chip:hover {
   background: rgba(255, 255, 255, .10);
   color: #fff;
@@ -634,23 +647,100 @@ h3 {
   min-height: 20px;
 }
 
+.lead-feedback:empty {
+  min-height: 0;
+}
+
 .lead-feedback.is-success {
   color: var(--primary);
 }
 
+.follow-shell,
+.account-shell {
+  background:
+    radial-gradient(circle at 12% 0, rgba(205, 216, 191, .38), transparent 34%),
+    linear-gradient(180deg, rgba(255, 253, 247, .98), rgba(248, 245, 238, .98));
+  min-height: 100%;
+}
+
+.follow-head,
+.account-shell > div:first-child {
+  position: relative;
+}
+
+.follow-kicker {
+  color: #5d7168;
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
 .lead-benefits {
-  border-top: 1px solid rgba(31, 40, 35, .12);
+  background: rgba(235, 231, 220, .54);
+  border: 1px solid rgba(31, 40, 35, .08);
+  border-radius: 10px;
   display: grid;
-  gap: 8px;
+  gap: 0;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding-top: 14px;
+  overflow: hidden;
 }
 
 .lead-benefits span {
+  color: #40564c;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.45;
+  padding: 14px;
+}
+
+.lead-benefits span + span {
+  border-left: 1px solid rgba(31, 40, 35, .08);
+}
+
+.account-inline {
+  background: transparent;
+  border: 0;
+  color: #526c5d;
+  font-size: 14px;
+  font-weight: 750;
+  min-height: 44px;
+  padding: 0;
+  text-align: center;
+}
+
+.account-inline:hover {
   color: var(--primary);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
+}
+
+.account-preview {
+  background: rgba(255, 253, 247, .58);
+  border-block: 1px solid rgba(31, 40, 35, .10);
+  display: grid;
+}
+
+.account-preview div {
+  align-items: start;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: minmax(120px, .35fr) minmax(0, 1fr);
+  padding: 14px 0;
+}
+
+.account-preview div + div {
+  border-top: 1px solid rgba(31, 40, 35, .08);
+}
+
+.account-preview strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.account-preview span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 .choice-poll {
@@ -1281,6 +1371,16 @@ h3 {
 
   .lead-grid,
   .lead-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-benefits span + span {
+    border-left: 0;
+    border-top: 1px solid rgba(31, 40, 35, .08);
+  }
+
+  .account-preview div {
+    gap: 6px;
     grid-template-columns: 1fr;
   }
 
