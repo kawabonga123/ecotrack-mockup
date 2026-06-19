@@ -462,6 +462,23 @@ function initCultMotion() {
   targets.forEach((element) => observer.observe(element));
 }
 
+function initHeroVideo() {
+  const video = $(".hero-video");
+  if (!video) return;
+
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+  };
+
+  tryPlay();
+  ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
+    window.addEventListener(eventName, tryPlay, { once: true, passive: true });
+  });
+}
+
 function cacheElements() {
   [
     "categoryFilter",
@@ -503,6 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateStep();
   bindEvents();
   initCultMotion();
+  initHeroVideo();
   registerServiceWorker();
   if (new URLSearchParams(window.location.search).get("report") === "1") {
     window.setTimeout(openReport, 150);
