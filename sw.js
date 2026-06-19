@@ -1,7 +1,7 @@
-const CACHE_NAME = "ecotrack-stage0-v70";
+const CACHE_NAME = "ecotrack-stage0-v71";
 const ASSETS = [
   "tailwind.generated.css?v=1",
-  "styles.css?v=62",
+  "styles.css?v=63",
   "app.js?v=30",
   "assets/logo.svg",
   "assets/hero-media/ecotrack-hero-poster.jpg",
