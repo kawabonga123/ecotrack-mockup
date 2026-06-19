@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tailwind.generated.css?v=1">
-  <link rel="stylesheet" href="styles.css?v=52">
-  <script src="app.js?v=26" defer></script>
+  <link rel="stylesheet" href="styles.css?v=55">
+  <script src="app.js?v=28" defer></script>
 </head>
 <body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -38,34 +38,34 @@
     </div>
   </header>
 
-  <main id="main" class="mx-auto grid max-w-7xl gap-8 px-4 pb-28 pt-7 lg:grid-cols-[.86fr_1.14fr] lg:px-6 lg:pb-12">
-    <section class="left-stack grid content-start gap-8">
-      <section class="report-console">
-        <div class="hero-copy grid gap-6">
-          <div class="grid gap-4">
-            <h1 class="hero-title max-w-2xl text-2xl font-black leading-tight sm:text-4xl">Reportá fácil y rápido un problema ambiental.</h1>
-            <p class="hero-lede max-w-xl text-base leading-7 text-eco-muted">Marcás dónde pasó, subís evidencia y enviás el aviso. <span>Sin cuenta para empezar.</span></p>
-          </div>
+  <main id="main" class="mx-auto grid max-w-7xl gap-8 px-4 pb-28 pt-7 lg:grid-cols-[.9fr_1.1fr] lg:px-6 lg:pb-12">
+    <section class="report-console spotlight-surface">
+      <aside class="hero-shot" aria-label="Vista previa del flujo ECOTRACK">
+        <div class="hero-map-stage hero-video-stage">
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-media/ecotrack-hero-poster.jpg" aria-label="Video documental ambiental para ECOTRACK">
+            <source src="assets/hero-media/ecotrack-hero-loop-720.mp4" type="video/mp4">
+          </video>
+          <div class="hero-map-scrim" aria-hidden="true"></div>
+        </div>
+      </aside>
 
-          <div class="hero-actions flex flex-col gap-3 sm:flex-row">
-            <button class="btn-primary min-h-14 flex-1 text-base" type="button" data-open-report>Iniciar aviso</button>
-            <a class="btn-secondary min-h-14 flex-1 text-base" href="#mapa">Ver mapa</a>
-          </div>
+      <div class="hero-copy grid gap-6">
+        <div class="grid gap-4">
+          <h1 class="hero-title max-w-2xl text-2xl font-black leading-tight sm:text-4xl">Reportá fácil y rápido un problema ambiental.</h1>
+          <p class="hero-lede max-w-xl text-base leading-7 text-eco-muted">Marcás dónde pasó, subís evidencia y enviás el aviso. <span>Sin cuenta para empezar.</span></p>
         </div>
 
-        <aside class="hero-shot" aria-label="Vista previa del flujo ECOTRACK">
-          <div class="hero-map-stage hero-video-stage">
-            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-media/ecotrack-hero-poster.jpg" aria-label="Video documental ambiental para ECOTRACK">
-              <source src="assets/hero-media/ecotrack-hero-loop-720.mp4" type="video/mp4">
-            </video>
-            <div class="hero-map-scrim" aria-hidden="true"></div>
-            <div class="hero-case-receipt">
-              <strong>Foto, lugar y listo.</strong>
-            </div>
-          </div>
-        </aside>
-      </section>
+        <div class="hero-actions flex flex-col gap-3 sm:flex-row">
+          <button class="btn-primary min-h-14 flex-1 text-base" type="button" data-open-report>Iniciar aviso</button>
+          <a class="btn-secondary min-h-14 flex-1 text-base" href="#mapa">Ver mapa</a>
+        </div>
+      </div>
+      <div class="hero-case-receipt">
+        <strong>Foto, lugar y listo.</strong>
+      </div>
+    </section>
 
+    <section class="left-stack grid content-start gap-8">
       <section id="casos" class="cases-panel grid gap-3">
         <div class="flex items-end justify-between gap-3">
           <div>

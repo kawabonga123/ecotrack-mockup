@@ -98,6 +98,18 @@ function createElement(tag, className, text) {
   return element;
 }
 
+function bindSpotlight(element) {
+  if (!element || element.dataset.spotlightReady === "true") return;
+  element.dataset.spotlightReady = "true";
+  element.addEventListener("pointermove", (event) => {
+    const rect = element.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    element.style.setProperty("--spot-x", `${x}%`);
+    element.style.setProperty("--spot-y", `${y}%`);
+  });
+}
+
 function renderCategoryFilter() {
   els.categoryFilter.innerHTML = "";
   ["Todos", ...categories].forEach((category) => {
@@ -111,7 +123,7 @@ function renderCategoryFilter() {
 function renderMissionList() {
   els.missionList.innerHTML = "";
   filteredReports().forEach((report) => {
-    const button = createElement("button", `mission-card ${state.selectedId === report.id ? "is-active" : ""}`);
+    const button = createElement("button", `mission-card spotlight-surface motion-surface ${state.selectedId === report.id ? "is-active" : ""}`);
     button.type = "button";
     button.setAttribute("aria-pressed", state.selectedId === report.id ? "true" : "false");
     button.addEventListener("click", () => selectReport(report.id));
@@ -126,6 +138,8 @@ function renderMissionList() {
     );
     button.append(body, createElement("span", "status-mini", report.status));
     els.missionList.appendChild(button);
+    bindSpotlight(button);
+    if (document.documentElement.classList.contains("motion-ready")) button.classList.add("is-visible");
   });
 }
 
@@ -408,6 +422,46 @@ function registerServiceWorker() {
   }
 }
 
+function initCultMotion() {
+  document.documentElement.classList.add("motion-ready");
+  [
+    ".hero-copy",
+    ".hero-shot",
+    ".cases-panel",
+    ".map-panel",
+    ".case-sheet",
+    ".upload-line",
+    ".hero-map-stage",
+  ].forEach((selector) => {
+    $$(selector).forEach((element) => {
+      element.classList.add("motion-surface");
+      if (element.matches(".upload-line, .hero-map-stage")) {
+        element.classList.add("spotlight-surface");
+        bindSpotlight(element);
+      }
+    });
+  });
+
+  const targets = $$(".motion-surface");
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 },
+  );
+  targets.forEach((element) => observer.observe(element));
+}
+
 function cacheElements() {
   [
     "categoryFilter",
@@ -448,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updatePickedPoint();
   updateStep();
   bindEvents();
+  initCultMotion();
   registerServiceWorker();
   if (new URLSearchParams(window.location.search).get("report") === "1") {
     window.setTimeout(openReport, 150);
