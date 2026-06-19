@@ -73,6 +73,30 @@ const state = {
   lead: { name: "", whatsapp: "", email: "" },
 };
 
+const statusOrder = ["recibido", "revisado", "derivado", "resuelto"];
+const statusMeta = {
+  recibido: {
+    label: "Recibido",
+    icon: "inbox",
+    copy: "Ya quedó cargado. El próximo paso es revisar evidencia y ubicación.",
+  },
+  revisado: {
+    label: "Revisado",
+    icon: "check",
+    copy: "El equipo ya revisó la información básica del caso.",
+  },
+  derivado: {
+    label: "Derivado",
+    icon: "send",
+    copy: "El caso fue derivado al canal operativo correspondiente.",
+  },
+  resuelto: {
+    label: "Resuelto",
+    icon: "flag",
+    copy: "El caso figura como cerrado en el historial.",
+  },
+};
+
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
@@ -92,11 +116,37 @@ function shortReportId(report) {
   return `#${report.id.replace("ECO-", "")}`;
 }
 
+function iconSvg(name) {
+  const paths = {
+    bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/><circle cx="12" cy="13" r="3"/>',
+    check: '<path d="m20 6-11 11-5-5"/>',
+    flag: '<path d="M5 22V4"/><path d="M5 4h11l-1 5 1 5H5"/>',
+    inbox: '<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5l3.5-7Z"/>',
+    map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15"/><path d="M15 6v15"/>',
+    plus: '<path d="M12 5v14"/><path d="M5 12h14"/>',
+    send: '<path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/>',
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.check}</g></svg>`;
+}
+
+function iconNode(name, className = "hub-icon") {
+  const node = createElement("span", className);
+  node.setAttribute("aria-hidden", "true");
+  node.innerHTML = iconSvg(name);
+  return node;
+}
+
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
   if (className) element.className = className;
   if (text !== undefined) element.textContent = text;
   return element;
+}
+
+function userReports() {
+  const selected = selectedReport();
+  return [selected, ...reports.filter((report) => report.id !== selected.id)].filter(Boolean).slice(0, 5);
 }
 
 function bindSpotlight(element) {
@@ -407,7 +457,7 @@ function saveLead() {
   state.lead = lead;
   els.leadFeedback.classList.add("is-success");
   els.leadFeedback.textContent = `Seguimiento activado para ${state.selectedId}.`;
-  window.setTimeout(() => els.followDialog.close(), 760);
+  window.setTimeout(() => openCaseHub("Seguimiento activado. Este caso ya aparece en tus reportes."), 520);
 }
 
 function resetAccountAccess() {
@@ -453,16 +503,118 @@ function validateAccountAccess() {
 function showAccountDemo() {
   const active = state.selectedId || "ECO-1024";
   els.accountFeedback.classList.add("is-success");
-  els.accountFeedback.textContent = `Demo abierta: ${active}, estado actual y posibilidad de ampliar evidencia.`;
+  els.accountFeedback.textContent = `Demo abierta: ${active}.`;
+  window.setTimeout(() => openCaseHub("Entraste a tus reportes. Este es el panel que vería una persona con seguimiento activo."), 320);
 }
 
 function showLoadedCase() {
-  els.followDialog.close();
-  window.setTimeout(() => {
-    const activeCard = document.querySelector(`.mission-card[data-report-id="${state.selectedId}"]`);
-    const target = activeCard || els.caseDetail || els.missionList;
-    target?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, 120);
+  openCaseHub("Listo, tu reporte quedó cargado.");
+}
+
+function renderCaseHub(message = "") {
+  const report = selectedReport();
+  const visibleReports = userReports();
+  const activeCount = visibleReports.filter((item) => item.status !== "resuelto").length;
+  const meta = statusMeta[report.status] || statusMeta.recibido;
+
+  els.caseHubAlert.hidden = false;
+  els.caseHubAlert.querySelector("strong").textContent = message || "Tus reportes están listos.";
+  els.caseHubAlertDetail.textContent = `${report.id} está en estado ${meta.label.toLowerCase()}.`;
+  els.hubReportCount.textContent = String(visibleReports.length);
+  els.hubActiveCount.textContent = String(activeCount);
+  els.hubLastStatus.textContent = meta.label;
+
+  els.hubReportList.innerHTML = "";
+  visibleReports.forEach((item) => {
+    const itemMeta = statusMeta[item.status] || statusMeta.recibido;
+    const row = createElement("button", `hub-report-row ${item.id === report.id ? "is-active" : ""}`);
+    row.type = "button";
+    row.setAttribute("aria-pressed", item.id === report.id ? "true" : "false");
+    row.addEventListener("click", () => {
+      selectReport(item.id);
+      renderCaseHub("Caso seleccionado.");
+    });
+
+    const copy = createElement("span", "hub-report-copy");
+    copy.append(
+      createElement("small", "", `${item.id} · ${item.category}`),
+      createElement("strong", "", item.title),
+      createElement("em", "", item.location),
+    );
+
+    const status = createElement("span", "hub-row-status", itemMeta.label);
+    row.append(iconNode(itemMeta.icon, "hub-status-icon"), copy, status);
+    els.hubReportList.appendChild(row);
+  });
+
+  const currentIndex = Math.max(0, statusOrder.indexOf(report.status));
+  const title = createElement("div", "hub-detail-title");
+  const titleCopy = createElement("div");
+  titleCopy.append(createElement("span", "follow-kicker", report.id), createElement("h3", "", report.title));
+  title.append(iconNode(meta.icon, "hub-detail-icon"), titleCopy);
+
+  const facts = createElement("dl", "hub-facts");
+  [
+    ["Estado", meta.label],
+    ["Zona", report.location],
+    ["Categoría", report.category],
+    ["Fecha", report.date],
+  ].forEach(([label, value]) => {
+    const item = createElement("div");
+    item.append(createElement("dt", "", label), createElement("dd", "", value));
+    facts.appendChild(item);
+  });
+
+  const context = createElement("div", "hub-context");
+  context.append(createElement("strong", "", "Qué pasa ahora"), createElement("p", "", meta.copy));
+
+  const timeline = createElement("ol", "hub-timeline");
+  statusOrder.forEach((status, index) => {
+    const stepMeta = statusMeta[status] || statusMeta.recibido;
+    const step = createElement("li", index <= currentIndex ? "is-done" : "");
+    const stepCopy = createElement("span");
+    stepCopy.append(createElement("strong", "", stepMeta.label), createElement("small", "", stepMeta.copy));
+    step.append(iconNode(index <= currentIndex ? stepMeta.icon : "plus", "hub-timeline-icon"), stepCopy);
+    timeline.appendChild(step);
+  });
+
+  const actions = createElement("div", "hub-actions");
+  const addEvidence = createElement("button", "btn-secondary min-h-12", "Agregar evidencia");
+  addEvidence.type = "button";
+  addEvidence.addEventListener("click", () => {
+    els.caseHubAlert.querySelector("strong").textContent = "En V1 esto abre una carga adicional.";
+    els.caseHubAlertDetail.textContent = "Queda planteado para sumar otra foto, video o detalle al mismo caso.";
+  });
+  const seeMap = createElement("button", "btn-primary min-h-12", "Ver en mapa");
+  seeMap.type = "button";
+  seeMap.addEventListener("click", () => {
+    closeCaseHub();
+    window.setTimeout(() => $("#mapa")?.scrollIntoView({ behavior: "smooth", block: "start" }), 120);
+  });
+  actions.append(addEvidence, seeMap);
+
+  els.hubCaseDetail.innerHTML = "";
+  els.hubCaseDetail.append(
+    title,
+    createElement("p", "hub-description", report.description),
+    facts,
+    context,
+    createElement("h4", "hub-subtitle", "Estado del reclamo"),
+    timeline,
+    actions,
+  );
+}
+
+function openCaseHub(message = "") {
+  if (els.followDialog.open) els.followDialog.close();
+  if (els.accountDialog.open) els.accountDialog.close();
+  renderCaseHub(message);
+  if (!els.caseHubDialog.open) els.caseHubDialog.showModal();
+  window.requestAnimationFrame(() => els.closeCaseHubBtn.focus());
+}
+
+function closeCaseHub() {
+  els.caseHubDialog.close();
 }
 
 function pickLocation(event) {
@@ -485,6 +637,7 @@ function bindEvents() {
   els.saveLeadBtn.addEventListener("click", saveLead);
   els.openAccountFromFollow.addEventListener("click", openAccountFromFollow);
   els.closeAccountBtn.addEventListener("click", closeAccount);
+  els.closeCaseHubBtn.addEventListener("click", closeCaseHub);
   els.openAccountBtn.addEventListener("click", validateAccountAccess);
   els.demoAccountBtn.addEventListener("click", showAccountDemo);
   els.accountAccessInput.addEventListener("keydown", (event) => {
@@ -625,6 +778,15 @@ function cacheElements() {
     "accountFeedback",
     "openAccountBtn",
     "demoAccountBtn",
+    "caseHubDialog",
+    "closeCaseHubBtn",
+    "caseHubAlert",
+    "caseHubAlertDetail",
+    "hubReportCount",
+    "hubActiveCount",
+    "hubLastStatus",
+    "hubReportList",
+    "hubCaseDetail",
   ].forEach((id) => {
     els[id] = document.getElementById(id);
   });
@@ -645,7 +807,10 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileCases.addListener(initCaseScrollSync);
   }
   registerServiceWorker();
-  if (new URLSearchParams(window.location.search).get("report") === "1") {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("hub") === "1") {
+    window.setTimeout(() => openCaseHub("Vista demo: así queda el seguimiento después de cargar un reporte."), 180);
+  } else if (params.get("report") === "1") {
     window.setTimeout(openReport, 150);
   }
 });

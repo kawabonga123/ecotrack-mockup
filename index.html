@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tailwind.generated.css?v=1">
-  <link rel="stylesheet" href="styles.css?v=70">
-  <script src="app.js?v=32" defer></script>
+  <link rel="stylesheet" href="styles.css?v=71">
+  <script src="app.js?v=34" defer></script>
 </head>
 <body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -260,6 +260,54 @@
         <button class="btn-primary min-h-12" type="button" id="openAccountBtn">Ver mis casos</button>
         <button class="btn-secondary min-h-12" type="button" id="demoAccountBtn">Ver demo</button>
       </div>
+    </div>
+  </dialog>
+
+  <dialog class="case-hub-dialog" id="caseHubDialog" aria-labelledby="caseHubTitle">
+    <div class="case-hub-shell">
+      <header class="case-hub-head">
+        <div>
+          <span class="follow-kicker">Tus reportes</span>
+          <h2 id="caseHubTitle">Seguimiento activo</h2>
+          <p>Acá ves qué quedó cargado, en qué estado está y qué podés hacer después.</p>
+        </div>
+        <button class="close-btn" type="button" id="closeCaseHubBtn">Cerrar</button>
+      </header>
+
+      <div class="hub-alert" id="caseHubAlert" role="status" aria-live="polite">
+        <span class="hub-alert-icon" aria-hidden="true"></span>
+        <div>
+          <strong>Listo, tu reporte quedó cargado.</strong>
+          <p id="caseHubAlertDetail">Ya podés seguirlo desde esta pantalla.</p>
+        </div>
+      </div>
+
+      <section class="hub-summary" aria-label="Resumen de seguimiento">
+        <div>
+          <span>Reportes</span>
+          <strong id="hubReportCount">0</strong>
+        </div>
+        <div>
+          <span>Activos</span>
+          <strong id="hubActiveCount">0</strong>
+        </div>
+        <div>
+          <span>Último estado</span>
+          <strong id="hubLastStatus">recibido</strong>
+        </div>
+      </section>
+
+      <section class="hub-layout" aria-label="Panel de reportes personales">
+        <div class="hub-list-panel">
+          <div class="hub-section-title">
+            <h3>Mis casos</h3>
+            <span>Historial demo</span>
+          </div>
+          <div class="hub-report-list" id="hubReportList"></div>
+        </div>
+
+        <article class="hub-case-detail" id="hubCaseDetail" aria-live="polite"></article>
+      </section>
     </div>
   </dialog>
 </body>
