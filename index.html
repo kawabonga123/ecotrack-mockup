@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tailwind.generated.css?v=1">
-  <link rel="stylesheet" href="styles.css?v=65">
+  <link rel="stylesheet" href="styles.css?v=66">
   <script src="app.js?v=30" defer></script>
 </head>
 <body class="min-w-[320px] bg-eco-wash text-eco-ink antialiased">
@@ -95,7 +95,7 @@
   </main>
 
   <dialog class="report-dialog" id="reportDialog" aria-labelledby="reportTitle">
-    <form method="dialog" class="grid gap-5 p-5 sm:p-6" id="reportForm">
+    <form method="dialog" class="report-form grid gap-5 p-5 sm:p-6" id="reportForm">
       <div class="flex items-start justify-between gap-4">
         <div>
           <h2 id="reportTitle" class="text-3xl font-black leading-tight">Reporte en tres pasos</h2>
@@ -150,7 +150,7 @@
 
       <p class="min-h-6 text-sm font-bold text-eco-coral" id="formFeedback" role="status" aria-live="polite"></p>
 
-      <div class="grid gap-3 sm:grid-cols-2">
+      <div class="report-actions grid gap-3 sm:grid-cols-2">
         <button class="btn-secondary min-h-12" type="button" id="backStepBtn" hidden>Volver</button>
         <button class="btn-primary min-h-12 sm:col-start-2" type="button" id="nextStepBtn">Continuar</button>
       </div>

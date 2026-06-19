@@ -808,6 +808,12 @@ h3 {
   width: min(720px, calc(100% - 24px));
 }
 
+.report-form {
+  background:
+    radial-gradient(circle at 18% 0, rgba(205, 216, 191, .28), transparent 34%),
+    var(--surface-strong);
+}
+
 .report-dialog[open] {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -881,6 +887,21 @@ h3 {
   animation: step-enter .22s var(--ease) both;
 }
 
+.report-actions {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0), var(--surface-strong) 22%),
+    var(--surface-strong);
+  bottom: 0;
+  margin-bottom: -20px;
+  padding: 12px 0 20px;
+  position: sticky;
+  z-index: 8;
+}
+
+.report-actions .btn-primary::after {
+  animation: action-sheen 4.6s var(--ease) infinite;
+}
+
 .upload-icon {
   align-items: center;
   background: var(--primary);
@@ -928,7 +949,9 @@ h3 {
 }
 
 .mini-game-map {
-  background: linear-gradient(145deg, #e7f1e8, #f3f7ed 52%, #deeff0);
+  background:
+    radial-gradient(circle at 64% 52%, rgba(164, 120, 85, .10), transparent 0 28px, transparent 52px),
+    linear-gradient(145deg, #e7f1e8, #f3f7ed 52%, #deeff0);
   border: 1px solid #d9e8df;
   border-radius: 8px;
   height: 190px;
@@ -937,6 +960,7 @@ h3 {
 }
 
 .mini-game-map::before {
+  animation: water-drift 7s var(--ease) infinite alternate;
   background: #b9e6ec;
   border-radius: 0 0 52% 45%;
   content: "";
@@ -949,7 +973,20 @@ h3 {
   width: 118%;
 }
 
+.mini-game-map::after {
+  animation: route-scan 3.8s var(--ease) infinite;
+  background:
+    linear-gradient(110deg, transparent 0 16%, rgba(38, 58, 49, .16) 17% 18%, transparent 19% 38%, rgba(38, 58, 49, .12) 39% 40%, transparent 41%),
+    linear-gradient(150deg, transparent 0 48%, rgba(164, 120, 85, .18) 49% 50%, transparent 51%);
+  content: "";
+  inset: 0;
+  opacity: .72;
+  pointer-events: none;
+  position: absolute;
+}
+
 .mini-game-map span {
+  animation: pin-breathe 2.4s var(--ease) infinite;
   background: var(--primary);
   border: 3px solid #fffdf7;
   border-radius: 8px;
@@ -982,6 +1019,46 @@ h3 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes water-drift {
+  from {
+    transform: translate3d(-2%, 0, 0) rotate(-4deg);
+  }
+
+  to {
+    transform: translate3d(3%, 4px, 0) rotate(-2deg);
+  }
+}
+
+@keyframes route-scan {
+  0%,
+  28% {
+    opacity: .28;
+    transform: translate3d(-8px, 5px, 0);
+  }
+
+  52% {
+    opacity: .82;
+  }
+
+  100% {
+    opacity: .45;
+    transform: translate3d(10px, -4px, 0);
+  }
+}
+
+@keyframes pin-breathe {
+  0%,
+  100% {
+    box-shadow: 0 12px 24px rgba(31, 40, 35, .16), 0 0 0 0 rgba(38, 58, 49, .20);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  48% {
+    box-shadow: 0 16px 30px rgba(31, 40, 35, .18), 0 0 0 9px rgba(38, 58, 49, 0);
+    transform: translate(-50%, -50%) scale(1.06);
   }
 }
 
@@ -1194,8 +1271,36 @@ h3 {
   .report-dialog {
     border-radius: 24px 24px 18px 18px;
     margin: 12px auto auto;
-    max-height: calc(100dvh - 24px);
+    max-height: calc(100dvh - 18px);
     width: min(420px, calc(100% - 20px));
+  }
+
+  .report-form {
+    gap: 14px !important;
+    padding: 24px 20px max(16px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .report-form h2 {
+    font-size: clamp(2rem, 9.2vw, 2.45rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .report-step {
+    gap: 12px !important;
+  }
+
+  .report-step h3 {
+    font-size: 1.45rem !important;
+    line-height: 1.08 !important;
+  }
+
+  .mini-game-map {
+    height: clamp(132px, 28svh, 168px);
+  }
+
+  .report-actions {
+    margin-bottom: calc(-1 * max(16px, env(safe-area-inset-bottom)));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
 
@@ -1227,12 +1332,20 @@ h3 {
   .hero-video-stage,
   .upload-line,
   .hero-actions .btn-primary::after,
+  .report-actions .btn-primary::after,
   .report-dialog,
   .report-step:not([hidden]),
+  .mini-game-map::before,
+  .mini-game-map::after,
   .motion-surface {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .mini-game-map span {
+    animation: none;
+    transform: translate(-50%, -50%);
   }
 }
 
