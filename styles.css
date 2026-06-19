@@ -986,6 +986,12 @@ h3 {
     margin-top: 26px;
   }
 
+  #casos,
+  #mapa {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   #casos > .flex {
     align-items: stretch;
     display: grid;
@@ -1004,6 +1010,18 @@ h3 {
     grid-template-columns: 1fr;
     min-height: 100svh;
     padding: 128px 24px 56px;
+  }
+
+  .report-console::before {
+    background: linear-gradient(180deg, rgba(231, 227, 216, 0), #e7e3d8 82%, #e7e3d8);
+    bottom: -1px;
+    content: "";
+    height: clamp(108px, 20svh, 168px);
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    z-index: 2;
   }
 
   .report-console::after {
@@ -1093,7 +1111,18 @@ h3 {
   }
 
   .mission-card {
+    gap: 8px;
     grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+    padding: 18px 0;
+  }
+
+  .mission-card.is-active {
+    padding: 18px;
+  }
+
+  .mission-card .status-mini {
+    padding: 2px 0 0;
   }
 
   .status-mini {
